@@ -81,10 +81,11 @@ join employee_table head on head.emp_id = e.immediate_head_id;
 select e.emp_name as 'Employee Name', 
 	d.dept_name as 'Employee Department Name',
     head.emp_name As 'Immediate Head',
-    d.dept_name as 'Immediate Head Department Name'
+    d1.dept_name as 'Immediate Head Department Name'
     from employee_table e
 join employee_table head on head.emp_id = e.immediate_head_id
-join department_table d on d.dept_id = e.dept_id;
+join department_table d on d.dept_id = e.dept_id
+join department_table d1 on d1.dept_id = head.dept_id;
 
 # 10. Get the list of employees whose immediate head working in location ‘madhapur’
 #       and whose salary is less than twice the salary of their respective immediate heads.
