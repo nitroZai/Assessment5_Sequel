@@ -16,7 +16,7 @@ where o.place = 'Madhapur';
 select o.place, count(*) from employee_table e
 join employee_office_table eo using (emp_id)
 join office_table o on o.office_id = eo.office_id
-group by o.place order by o.place desc LIMIT 1;
+group by o.place;
 
 -- 4.Get the third highest salaried employee name, insurance name and salary(Joins)
 # Creating a table and Finding Minimum
@@ -38,12 +38,12 @@ from
 			as secondary;
 
 # 5.Get the Average salary of employees from each department for a particular location
-select d.dept_name, avg(salary) from employee_table e
+select o.place, d.dept_name, avg(salary) from employee_table e
 join department_table d on e.dept_id = d.dept_id
 join employee_office_table eo on eo.emp_id = e.emp_id
 join office_table o on eo.office_id = o.office_id
 join employee_info_table ei on ei.id = e.employee_info_id
-group by e.dept_id;
+group by d.dept_id;
 
 # 6. Get the sum of salaries of the employees joined after 02-01-2022 working in ‘Madhapur’
 select sum(salary) from employee_table e
@@ -55,7 +55,6 @@ where ei.DOJ > '2022-01-02' and o.place = 'Madhapur';
 # 7. Get name, department, salary of employees who joined after 20-02-2022 
 # and  salary is greater than 20000 
 # and has insurance either in lic or icici or both and whose work location is madhapur.
-
 select e.emp_name, d.dept_name, ei.salary, i.insurance_name from employee_table e
 join employee_office_table eo on e.emp_id = eo.emp_id
 join employee_info_table ei on e.employee_info_id = ei.id
@@ -64,6 +63,7 @@ join insurance_table i using (insurance_id)
 join department_table d on e.dept_id = d.dept_id
 where ei.salary > 20000 and ei.DOJ > '2022-01-1'
 and i.insurance_name in ('LIC', 'Bajaj');
+
 
 # 8. Get the list of employee names and their respective immediate head name
 # Implicit Join
